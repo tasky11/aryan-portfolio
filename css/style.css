@@ -525,9 +525,196 @@ p {
 
 /* ---------- PROJECTS ---------- */
 
+
+/* ---------- PROJECTS ---------- */
+
 .projects-section {
   background: rgba(229, 214, 195, 0.7);
 }
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 35px;
+}
+
+.project-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(96, 75, 59, 0.1);
+  border-radius: var(--radius);
+  background: var(--bg);
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.project-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 18px 35px rgba(64, 48, 34, 0.12);
+}
+
+/* PROJECT IMAGE */
+
+.project-image {
+  position: relative;
+  display: flex;
+  min-height: 290px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0;
+  background: var(--surface);
+}
+
+.project-cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.project-card:hover .project-cover {
+  transform: scale(1.04);
+}
+
+/* PROJECT BACKGROUND COLOURS */
+
+.project-blue {
+  background: #B7C9C9;
+}
+
+.project-purple {
+  background: #C8B8D1;
+}
+
+.project-orange {
+  background: #D9B99C;
+}
+
+.project-green {
+  background: #B8C5A8;
+}
+
+/* PROJECT INDEX */
+
+.project-index {
+  position: absolute;
+  z-index: 2;
+  top: 22px;
+  left: 25px;
+  color: rgba(41, 37, 34, 0.8);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* PROJECT CATEGORY */
+
+.project-category {
+  position: absolute;
+  z-index: 2;
+  right: 20px;
+  bottom: 20px;
+  color: rgba(41, 37, 34, 0.85);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+/* PROJECT INFORMATION */
+
+.project-info {
+  padding: 27px;
+}
+
+.project-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.project-info h3 {
+  margin: 13px 0 10px;
+  color: var(--heading);
+  font-size: clamp(19px, 2vw, 23px);
+  line-height: 1.35;
+}
+
+.project-info p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+/* PROJECT TAGS */
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.tag-list span {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 11px;
+  border: 1px solid rgba(96, 75, 59, 0.15);
+  border-radius: 50px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+/* ---------- PROJECT RESPONSIVE ---------- */
+
+@media (max-width: 900px) {
+
+ 
+}
+
+@media (max-width: 700px) {
+
+  .project-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  
+
+}
+
+@media (max-width: 480px) {
+
+  
+
+  .project-info {
+    padding: 21px;
+  }
+
+  .project-info h3 {
+    font-size: 19px;
+  }
+
+}
+
+@media (max-width: 360px) {
+
+  .project-meta {
+    font-size: 9px;
+  }
+
+}
+
 
 .project-grid {
   display: grid;
