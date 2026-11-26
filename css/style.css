@@ -1,4 +1,3 @@
-
 /* =========================================
    ARYAN GOND — RESPONSIVE PORTFOLIO
    Desktop | Laptop | Tablet | Mobile
@@ -261,20 +260,22 @@ p {
 }
 
 /* ---------- HERO ---------- */
+/* The hero now contains the marquee, so it has no bottom padding. */
 
 .hero {
-  position: relative;
-  padding: 100px 0 110px;
+  padding: 100px 0 0;
   background:
     radial-gradient(circle at 80% 25%, rgba(198, 182, 157, 0.35), transparent 35%),
     var(--bg);
 }
 
 .hero-grid {
+  flex: 1;
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   align-items: center;
   gap: 70px;
+  padding-bottom: 70px;
 }
 
 .hero-content {
@@ -380,6 +381,7 @@ p {
 /* ---------- MARQUEE ---------- */
 
 .marquee {
+  margin-top: auto;           /* pins the strip to the bottom of the hero page */
   overflow: hidden;
   padding: 19px 0;
   background: var(--heading);
@@ -423,9 +425,10 @@ p {
 }
 
 /* ---------- ABOUT ---------- */
+/* Page backgrounds are SOLID so stacked pages never show through. */
 
 .about-section {
-  background: rgba(242, 235, 221, 0.72);
+  background: #F7F2E8;
 }
 
 .about-grid {
@@ -525,11 +528,8 @@ p {
 
 /* ---------- PROJECTS ---------- */
 
-
-/* ---------- PROJECTS ---------- */
-
 .projects-section {
-  background: rgba(229, 214, 195, 0.7);
+  background: #E9DCCB;
 }
 
 .project-grid {
@@ -655,179 +655,7 @@ p {
   line-height: 1.8;
 }
 
-/* PROJECT TAGS */
-
-.tag-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 20px;
-}
-
-.tag-list span {
-  display: inline-flex;
-  align-items: center;
-  padding: 7px 11px;
-  border: 1px solid rgba(96, 75, 59, 0.15);
-  border-radius: 50px;
-  color: var(--muted);
-  font-size: 10px;
-  font-weight: 600;
-}
-
-/* ---------- PROJECT RESPONSIVE ---------- */
-
-@media (max-width: 900px) {
-
- 
-}
-
-@media (max-width: 700px) {
-
-  .project-grid {
-    grid-template-columns: 1fr;
-    gap: 25px;
-  }
-
-  
-
-}
-
-@media (max-width: 480px) {
-
-  
-
-  .project-info {
-    padding: 21px;
-  }
-
-  .project-info h3 {
-    font-size: 19px;
-  }
-
-}
-
-@media (max-width: 360px) {
-
-  .project-meta {
-    font-size: 9px;
-  }
-
-}
-
-
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 35px;
-}
-
-.project-card {
-  min-width: 0;
-  overflow: hidden;
-  border: 1px solid rgba(96, 75, 59, 0.1);
-  border-radius: var(--radius);
-  background: var(--bg);
-  transition:
-    transform var(--transition),
-    box-shadow var(--transition);
-}
-
-.project-card:hover {
-  transform: translateY(-7px);
-  box-shadow: 0 18px 35px rgba(64, 48, 34, 0.12);
-}
-
-.project-image {
-  position: relative;
-  display: flex;
-  min-height: 290px;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  padding: 35px;
-}
-
-.project-blue {
-  background: #B7C9C9;
-}
-
-.project-purple {
-  background: #C8B8D1;
-}
-
-.project-orange {
-  background: #D9B99C;
-}
-
-.project-green {
-  background: #B8C5A8;
-}
-
-.project-index {
-  position: absolute;
-  top: 22px;
-  left: 25px;
-  color: rgba(41, 37, 34, 0.65);
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.project-visual-text {
-  color: var(--heading);
-  font-family: var(--font-heading);
-  font-size: clamp(38px, 5vw, 65px);
-  font-weight: 800;
-  line-height: 0.95;
-  letter-spacing: -3px;
-  text-align: center;
-  transition: transform var(--transition);
-}
-
-.project-card:hover .project-visual-text {
-  transform: scale(1.06);
-}
-
-.project-visual-text span {
-  color: var(--white);
-}
-
-.project-category {
-  position: absolute;
-  right: 20px;
-  bottom: 20px;
-  color: rgba(41, 37, 34, 0.75);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-}
-
-.project-info {
-  padding: 27px;
-}
-
-.project-meta {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  color: var(--accent);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.project-info h3 {
-  margin: 13px 0 10px;
-  color: var(--heading);
-  font-size: clamp(19px, 2vw, 23px);
-  line-height: 1.35;
-}
-
-.project-info p {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.8;
-}
+/* TAGS */
 
 .tag-list {
   display: flex;
@@ -850,7 +678,7 @@ p {
 /* ---------- SKILLS ---------- */
 
 .skills-section {
-  background: rgba(242, 235, 221, 0.75);
+  background: #F2EBDD;
 }
 
 .skills-grid {
@@ -893,6 +721,65 @@ p {
   color: var(--muted);
   font-size: 13px;
   line-height: 1.8;
+}
+
+/* ---------- TOOLS ---------- */
+
+.tools-section {
+  background: #E6D7C4;
+  padding: 36px;
+  border-radius: 22px;
+  border: 1px solid #D2C1AA;
+}
+
+.section-number {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #806C59;
+  font-weight: 600;
+  margin-bottom: 35px;
+}
+
+.tools-section h2 {
+  font-size: 28px;
+  color: #59483A;
+  margin-bottom: 15px;
+}
+
+.tools-description {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #796B5D;
+  margin-bottom: 30px;
+}
+
+.tools-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tool {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 16px;
+  border: 1px solid #D2C1AA;
+  border-radius: 30px;
+  color: #59483A;
+  font-size: 13px;
+  transition: 0.3s ease;
+}
+
+.tool img {
+  width: 19px;
+  height: 19px;
+  object-fit: contain;
+}
+
+.tool:hover {
+  background: #D8C6AE;
+  transform: translateY(-3px);
 }
 
 /* ---------- EDUCATION ---------- */
@@ -964,7 +851,7 @@ p {
 /* ---------- CONTACT ---------- */
 
 .contact-section {
-  background: rgba(229, 214, 195, 0.75);
+  background: #E5D6C3;
 }
 
 .contact-grid {
@@ -1154,6 +1041,47 @@ p {
 }
 
 /* =========================================
+   STACKING PAGES
+   Home, About, Projects, Skills and Contact
+   each pin in place while the next page
+   slides up over them.
+   (main.js sets each page's `top` value.)
+========================================= */
+
+main > section[id] {
+  position: sticky;
+  top: 0;                                  /* main.js overrides this */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100vh - var(--hh, 82px));
+  min-height: calc(100svh - var(--hh, 82px));
+}
+
+/* the page underneath shrinks slightly as the next page covers it */
+main > section[id] {
+  transform-origin: center top;
+  transform: scale(calc(1 - var(--cover, 0) * 0.04));
+}
+
+/* dark veil that fades in as the next page covers this one */
+main > section[id]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #2B211A;
+  opacity: calc(var(--cover, 0) * 0.3);
+  pointer-events: none;
+}
+
+/* rounded top edge and shadow, so each page looks like it slides over */
+main > section[id]:not(.hero) {
+  border-radius: 28px 28px 0 0;
+  box-shadow: 0 -14px 40px rgba(64, 48, 34, 0.14);
+}
+
+/* =========================================
    RESPONSIVE BREAKPOINTS
 ========================================= */
 
@@ -1201,12 +1129,13 @@ p {
   }
 
   .hero {
-    padding: 75px 0 85px;
+    padding: 75px 0 0;
   }
 
   .hero-grid {
     grid-template-columns: 1fr 0.8fr;
     gap: 30px;
+    padding-bottom: 60px;
   }
 
   .hero h1 {
@@ -1315,12 +1244,13 @@ p {
   }
 
   .hero {
-    padding: 65px 0 75px;
+    padding: 65px 0 0;
   }
 
   .hero-grid {
     grid-template-columns: 1fr;
     gap: 55px;
+    padding-bottom: 55px;
   }
 
   .hero-content {
@@ -1394,10 +1324,6 @@ p {
     min-height: 270px;
   }
 
-  .project-visual-text {
-    font-size: clamp(48px, 12vw, 65px);
-  }
-
   .education-section {
     margin-top: 75px;
   }
@@ -1444,6 +1370,11 @@ p {
     text-align: center;
     gap: 13px;
   }
+
+  /* slightly softer corners on phones */
+  main > section[id]:not(.hero) {
+    border-radius: 20px 20px 0 0;
+  }
 }
 
 /* ---------- SMALL MOBILE ---------- */
@@ -1458,7 +1389,7 @@ p {
   }
 
   .hero {
-    padding: 55px 0 65px;
+    padding: 55px 0 0;
   }
 
   .hero h1 {
@@ -1565,10 +1496,6 @@ p {
     font-size: 33px;
   }
 
-  .project-visual-text {
-    font-size: 42px;
-  }
-
   .project-meta {
     font-size: 9px;
   }
@@ -1598,63 +1525,14 @@ p {
   .grain-overlay {
     animation: none;
   }
-}
 
+  /* no pinned pages for people who prefer reduced motion */
+  main > section[id] {
+    position: relative;
+    transform: none;
+  }
 
-
-.tools-section {
-    background: #E6D7C4;
-    padding: 36px;
-    border-radius: 22px;
-    border: 1px solid #D2C1AA;
-}
-
-.section-number {
-    font-size: 12px;
-    letter-spacing: 2px;
-    color: #806C59;
-    font-weight: 600;
-    margin-bottom: 35px;
-}
-
-.tools-section h2 {
-    font-size: 28px;
-    color: #59483A;
-    margin-bottom: 15px;
-}
-
-.tools-description {
-    font-size: 16px;
-    line-height: 1.7;
-    color: #796B5D;
-    margin-bottom: 30px;
-}
-
-.tools-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.tool {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    padding: 11px 16px;
-    border: 1px solid #D2C1AA;
-    border-radius: 30px;
-    color: #59483A;
-    font-size: 13px;
-    transition: 0.3s ease;
-}
-
-.tool img {
-    width: 19px;
-    height: 19px;
-    object-fit: contain;
-}
-
-.tool:hover {
-    background: #D8C6AE;
-    transform: translateY(-3px);
+  main > section[id]::after {
+    display: none;
+  }
 }
