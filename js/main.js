@@ -1,175 +1,3 @@
-
-// /* =====================================
-//    01. MOBILE NAVIGATION
-// ===================================== */
-
-// const menuToggle = document.querySelector(".menu-toggle");
-// const navLinks = document.querySelector(".nav-links");
-
-// if (menuToggle && navLinks) {
-
-//   menuToggle.addEventListener("click", () => {
-
-//     const isOpen = navLinks.classList.toggle("open");
-
-//     menuToggle.setAttribute(
-//       "aria-expanded",
-//       isOpen
-//     );
-
-//     menuToggle.textContent = isOpen ? "✕" : "☰";
-
-//   });
-
-
-//   // Close menu after clicking a navigation link
-
-//   navLinks.querySelectorAll("a").forEach(link => {
-
-//     link.addEventListener("click", () => {
-
-//       navLinks.classList.remove("open");
-
-//       menuToggle.setAttribute(
-//         "aria-expanded",
-//         "false"
-//       );
-
-//       menuToggle.textContent = "☰";
-
-//     });
-
-//   });
-
-// }
-
-
-// /* =====================================
-//    02. ACTIVE NAVIGATION
-// ===================================== */
-
-// const sections = document.querySelectorAll("main section[id]");
-// const navItems = document.querySelectorAll(".nav-links a");
-
-// const sectionObserver = new IntersectionObserver(
-//   (entries) => {
-
-//     entries.forEach(entry => {
-
-//       if (entry.isIntersecting) {
-
-//         const currentId = entry.target.id;
-
-//         navItems.forEach(link => {
-
-//           link.classList.toggle(
-//             "active",
-//             link.getAttribute("href") === `#${currentId}`
-//           );
-
-//         });
-
-//       }
-
-//     });
-
-//   },
-//   {
-//     rootMargin: "-25% 0px -65% 0px"
-//   }
-// );
-
-// sections.forEach(section => {
-//   sectionObserver.observe(section);
-// });
-
-
-// /* =====================================
-//    03. SCROLL REVEAL ANIMATION
-// ===================================== */
-
-// const revealElements = document.querySelectorAll(".reveal");
-
-// const revealObserver = new IntersectionObserver(
-//   (entries, observer) => {
-
-//     entries.forEach(entry => {
-
-//       if (entry.isIntersecting) {
-
-//         entry.target.classList.add("visible");
-
-//         observer.unobserve(entry.target);
-
-//       }
-
-//     });
-
-//   },
-//   {
-//     threshold: 0.12
-//   }
-// );
-
-// revealElements.forEach(element => {
-//   revealObserver.observe(element);
-// });
-
-
-// /* =====================================
-//    04. AUTOMATIC FOOTER YEAR
-// ===================================== */
-
-// const yearElement = document.getElementById("year");
-
-// if (yearElement) {
-//   yearElement.textContent = new Date().getFullYear();
-// }
-
-
-// /* =====================================
-//    05. CONTACT FORM
-// ===================================== */
-
-// const contactForm = document.getElementById("contact-form");
-// const formMessage = document.getElementById("form-message");
-
-// if (contactForm) {
-
-//   contactForm.addEventListener("submit", function(event) {
-
-//     event.preventDefault();
-
-//     const name = document.getElementById("name").value.trim();
-//     const email = document.getElementById("email").value.trim();
-//     const subject = document.getElementById("subject").value.trim();
-//     const message = document.getElementById("message").value.trim();
-
-//     if (!name || !email || !subject || !message) {
-
-//       formMessage.textContent = "Please fill in all fields.";
-//       return;
-
-//     }
-
-//     const emailSubject = encodeURIComponent(subject);
-
-//     const emailBody = encodeURIComponent(
-//       `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-//     );
-
-//     const mailtoLink =
-//       `mailto:aryan.gond11@gmail.com?subject=${emailSubject}&body=${emailBody}`;
-
-//     formMessage.textContent =
-//       "Opening your email application...";
-
-//     window.location.href = mailtoLink;
-
-//   });
-
-// }
-
 /* =====================================
    ARYAN GOND — PORTFOLIO JAVASCRIPT
 ===================================== */
@@ -230,46 +58,151 @@ if (menuToggle && navLinks) {
 
 
 /* =====================================
-   02. ACTIVE NAVIGATION
+   02. STACKING PAGES + ACTIVE NAV + ANCHOR SCROLL
+   Replaces the old IntersectionObserver
+   active-link code.
 ===================================== */
 
-const sections = document.querySelectorAll("main section[id]");
+const header = document.querySelector(".site-header");
+const stackMain = document.querySelector("main");
+const stackSections = [...document.querySelectorAll("main > section[id]")];
 const navItems = document.querySelectorAll(".nav-links a");
 
-const sectionObserver = new IntersectionObserver(
+let starts = [];   // where each page begins in normal page flow
 
-  entries => {
+function measureStack() {
 
-    entries.forEach(entry => {
+  const headerHeight = header.offsetHeight;
+  const viewportHeight = window.innerHeight;
 
-      if (entry.isIntersecting) {
+  // lets the CSS size each page to (screen - header)
+  document.documentElement.style.setProperty("--hh", headerHeight + "px");
 
-        const currentId = entry.target.id;
+  // start position of every page in normal flow
+  let y = stackMain.getBoundingClientRect().top + window.scrollY;
 
-        navItems.forEach(link => {
+  starts = stackSections.map(section => {
+    const start = y;
+    y += section.offsetHeight;
+    return start;
+  });
 
-          link.classList.toggle(
-            "active",
-            link.getAttribute("href") === `#${currentId}`
-          );
+  // Short page: pin just under the header.
+  // Tall page: pin once its bottom edge reaches the bottom of the screen,
+  // so all of its content can still be scrolled through.
+  stackSections.forEach(section => {
+    section.style.top =
+      Math.min(headerHeight, viewportHeight - section.offsetHeight) + "px";
+  });
 
-        });
+}
 
-      }
+function updateActiveLink() {
 
-    });
+  const viewportHeight = window.innerHeight;
+  let current = 0;
 
-  },
+  starts.forEach((start, index) => {
+    if (start - window.scrollY <= viewportHeight * 0.5) {
+      current = index;
+    }
+  });
 
-  {
-    rootMargin: "-25% 0px -65% 0px"
+  const atBottom =
+    window.innerHeight + window.scrollY >=
+    document.documentElement.scrollHeight - 4;
+
+  if (atBottom) {
+    current = stackSections.length - 1;
   }
 
+  const currentId = stackSections[current].id;
+
+  navItems.forEach(link => {
+    link.classList.toggle(
+      "active",
+      link.getAttribute("href") === `#${currentId}`
+    );
+  });
+
+}
+
+// How much of each page is covered by the next one (0 to 1).
+// CSS uses this value to shrink and dim the page underneath.
+
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function updateCover() {
+
+  if (reduceMotion) return;
+
+  const viewportHeight = window.innerHeight;
+  const headerHeight = header.offsetHeight;
+
+  stackSections.forEach((section, index) => {
+
+    const next = stackSections[index + 1];
+
+    if (!next) return;
+
+    const nextTop = next.getBoundingClientRect().top;
+
+    const progress = Math.min(
+      1,
+      Math.max(0, (viewportHeight - nextTop) / (viewportHeight - headerHeight))
+    );
+
+    section.style.setProperty("--cover", progress.toFixed(3));
+
+  });
+
+}
+
+// Anchor links: scroll to each page's real starting point
+// (not to where the page is currently pinned).
+
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+
+  link.addEventListener("click", event => {
+
+    const id = link.getAttribute("href").slice(1);
+    const index = stackSections.findIndex(section => section.id === id);
+
+    if (index === -1) return;
+
+    event.preventDefault();
+
+    window.scrollTo({
+      top: Math.max(0, starts[index] - header.offsetHeight),
+      behavior: "smooth"
+    });
+
+  });
+
+});
+
+function refreshStack() {
+  measureStack();
+  updateActiveLink();
+  updateCover();
+}
+
+window.addEventListener(
+  "scroll",
+  () => {
+    updateActiveLink();
+    updateCover();
+  },
+  { passive: true }
 );
 
-sections.forEach(section => {
-  sectionObserver.observe(section);
-});
+window.addEventListener("resize", refreshStack);
+window.addEventListener("load", refreshStack);
+
+// re-measure whenever images, fonts or content change the page height
+new ResizeObserver(refreshStack).observe(stackMain);
+
+refreshStack();
 
 
 /* =====================================
@@ -386,6 +319,7 @@ if (contactForm && formMessage) {
 /* =====================================
    06. CURSOR FOLLOWING GLOW
    Desktop Only
+   (needs a .cursor-glow style in style.css to be visible)
 ===================================== */
 
 const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -406,6 +340,3 @@ if (isDesktop) {
   });
 
 }
-
-
-
